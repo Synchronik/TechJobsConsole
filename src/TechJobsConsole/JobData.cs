@@ -58,6 +58,32 @@ namespace TechJobsConsole
             return jobs;
         }
 
+        public static List<Dictionary<string, string>> FindByValue(string value)
+        {
+            /*Search in each column for the value. If the key has already been added, don't add it again.*/ 
+            LoadData();
+
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> row in AllJobs)
+            {
+                
+                foreach (KeyValuePair<string, string> item in row)
+                {
+                    bool contains = item.Value.IndexOf(value, System.StringComparison.OrdinalIgnoreCase) >= 0;
+                    if (contains)
+                    {
+                        jobs.Add(row);
+                        break;
+                    }
+                }
+            }
+
+            return jobs;
+
+
+        }
+
         /*
          * Load and parse data from job_data.csv
          */
